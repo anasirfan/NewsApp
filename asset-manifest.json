@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/anasirfan.github.io/static/css/main.abd64e84.css",
-    "main.js": "/anasirfan.github.io/static/js/main.f9e7cac6.js",
-    "static/js/787.4c026eef.chunk.js": "/anasirfan.github.io/static/js/787.4c026eef.chunk.js",
-    "index.html": "/anasirfan.github.io/index.html",
-    "main.abd64e84.css.map": "/anasirfan.github.io/static/css/main.abd64e84.css.map",
-    "main.f9e7cac6.js.map": "/anasirfan.github.io/static/js/main.f9e7cac6.js.map",
-    "787.4c026eef.chunk.js.map": "/anasirfan.github.io/static/js/787.4c026eef.chunk.js.map"
+    "main.css": "/NewsApp/static/css/main.abd64e84.css",
+    "main.js": "/NewsApp/static/js/main.2c954b97.js",
+    "static/js/787.4c026eef.chunk.js": "/NewsApp/static/js/787.4c026eef.chunk.js",
+    "index.html": "/NewsApp/index.html",
+    "main.abd64e84.css.map": "/NewsApp/static/css/main.abd64e84.css.map",
+    "main.2c954b97.js.map": "/NewsApp/static/js/main.2c954b97.js.map",
+    "787.4c026eef.chunk.js.map": "/NewsApp/static/js/787.4c026eef.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.abd64e84.css",
-    "static/js/main.f9e7cac6.js"
+    "static/js/main.2c954b97.js"
   ]
 }
