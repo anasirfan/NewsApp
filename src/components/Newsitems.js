@@ -6,7 +6,7 @@ export class Newsitems extends Component {
     return (
       <div className='my-3'>
         <div className="card" >
-        <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style={{zIndex:"1", left: "90%" }}>{source}</span>
+        <span className="position-absolute top-0 translate-middle badge rounded-pill bg-danger" style={{zIndex:"1", left: "90%" }}>{source}</span>
             <img src={!imageUrl?"https://mediaengagement.org/wp-content/uploads/2016/08/shutterstock_204593950-600x565.jpg":imageUrl} className="card-img-top" alt="..."/>
             <div className="card-body">
             <h5 className="card-title">{title}...</h5>
