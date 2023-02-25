@@ -1,64 +1,89 @@
-import React, { Component, useEffect } from 'react'
-import Newsitems from './Newsitems'
+import React, { Component } from 'react';
+import Newsitems from './Newsitems';
 import Spinner from './Spinner';
-import PropTypes from 'prop-types' 
- 
+import PropTypes from 'prop-types';
 
 export class News extends Component {
-   static defaultProps = {
-    pageSize : 9 , 
-    country : 'us' ,
-    category : 'general'
-    
-    
-   }
+  static defaultProps = {
+    pageSize: 9,
+    country: 'us',
+    category: 'general'
+  };
 
-   static propTypes = {
-    name : PropTypes.string,
-    pageSize : PropTypes.number ,
-    category : PropTypes.string 
-   }
-    constructor(props){
-        super(props);
-        this.state = {
-            articles : [],
-            loading : false , 
-            page : 1 ,
-        }
-    }
-    async updateNews(){
+  static propTypes = {
+    pageSize: PropTypes.number,
+    category: PropTypes.string,
+    country: PropTypes.string
+  };
 
-      const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=30a1c5dbf79b409e80b16f3ead4976a3&page=${this.state.page}&pagesize=${this.props.pageSize}`;
-      this.setState({loading: true})
+  constructor(props) {
+    super(props);
+    this.state = {
+      articles: [],
+      loading: false,
+      page: 1,
+      totalResults: 0
+    };
+  }
 
-      let data = await fetch(url);
+  async componentDidMount() {
+    this.updateNews();
+  }
 
-      let parsedData = await data.json();
-      this.setState({articles : parsedData.articles , totalResults : parsedData.totalResults, loading: false})
-      this.props.setProgress(100);
-    }
-    async componentDidMount(props){
-      
-       this.updateNews();
-             
-    }
-    // componentDidUpdate(prevProps) {
-    //   if (prevProps.category !== this.props.category || prevProps.country !== this.props.country) {
-    //     this.updateNews();
-    //   }
-    // }
-
-    
-    handlePrevClick = async () => {
+  async componentDidUpdate(prevProps) {
+    if (
+      prevProps.category !== this.props.category ||
+      prevProps.country !== this.props.country
+    ) {
+      this.setState({ page: 1 }, () => {
         this.updateNews();
-        this.setState({page: this.state.page -1 })
+      });
     }
-    handleNextClick = async () => {
-        if(!(this.state.page +1 > Math.ceil(this.state.totalResults/this.props.pageSize))){
+  }
+
+  async updateNews() {
+    const { country, category, pageSize } = this.props;
+    const { page } = this.state;
+    const url = `http://localhost:5000/api/news?country=${country}&category=${category}&page=${page}&pagesize=${pageSize}`;
+    this.setState({ loading: true });
+    try {
+      const response = await fetch(url);
+      const parsedData = await response.json();
+      this.setState({
+        articles: parsedData.articles,
+        totalResults: parsedData.totalResults,
+        loading: false
+      });
+    } catch (error) {
+      console.error(error);
+      this.setState({ loading: false });
+    }
+  }
+  
+
+  handlePrevClick = () => {
+    this.setState(
+      {
+        page: this.state.page - 1
+      },
+      () => {
+        this.updateNews();
+      }
+    );
+  };
+
+  handleNextClick = () => {
+    if (this.state.page + 1 <= Math.ceil(this.state.totalResults / this.props.pageSize)) {
+      this.setState(
+        {
+          page: this.state.page + 1
+        },
+        () => {
           this.updateNews();
-        this.setState({page: this.state.page +1})}
-        
+        }
+      );
     }
+  };
   render() {
     return (
       <div className='container my-3'>
@@ -80,4 +105,4 @@ export class News extends Component {
   }
 }
 
-export default News
+export default News;
